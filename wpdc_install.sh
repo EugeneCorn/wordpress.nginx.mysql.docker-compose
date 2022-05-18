@@ -42,16 +42,16 @@ elif [ `id -u --name 999 2> /dev/null`  != "mysql" ]; then
         CURUSER=`cat ./fileforscript.himark`
 
         # Delete current user with id 999
-        echo "Deleted user $CURUSER with id 999"
+        echo "Delete user $CURUSER with id 999"
         sudo userdel $CURUSER
 
         # Create user mysql with id 999
-        echo "Created mysql user with id 999"
-        sudo userdel mysql > /dev/null
+        echo "Create mysql user with id 999"
+        sudo userdel mysql
         sudo useradd -u 999 mysql
 
         # Create past user
-        echo "Created user $CURUSER"
+        echo "Create user $CURUSER"
         sudo useradd $CURUSER
 
         # remove temporary files
@@ -68,3 +68,50 @@ else
 
 fi 2> /dev/null
 
+#Create directory and set the owner for it
+
+sudo mkdir -p /data/mysql
+sudo chown -R mysql:mysql /data/mysql
+
+
+#Create user www-data for NGINX with user id 82
+
+#If user www-data exist
+if [ `id -u --name 82 2> /dev/null` = "www-data" ]; then
+
+        echo "Current www-data id is 82."
+
+#If /etc/passwd have another user with id 82
+elif [ `id -u --name 82 2> /dev/null`  != "www-data" ]; then
+
+        #Make variable with name of current user with id 82
+        id -u --name 82 > fileforscript1.himark
+
+        CURUSER=`cat ./fileforscript1.himark`
+
+        # Delete current user with id 82
+        echo "Delete user $CURUSER with id 82"
+        sudo userdel $CURUSER
+
+        # Create user www-data with id 82
+        echo "Create www-data user with id 82"
+        sudo userdel www-data 
+        sudo useradd -u 82 www-data
+
+        # Create past user
+        echo "Create user $CURUSER"
+        sudo useradd $CURUSER
+
+        # remove temporary files
+        rm ./fileforscript1.himark
+
+
+#If user www-data don't exist
+else
+        #Create user www-data with id 82
+        sudo userdel www-data
+        sudo useradd -u 82 www-data
+
+        echo "Created www-data user with id 82"
+
+fi 2> /dev/null
