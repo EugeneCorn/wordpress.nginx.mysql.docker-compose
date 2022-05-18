@@ -21,7 +21,7 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o 
 
 sudo apt-get update
 
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 #Create user for MySQL with user id 999
 
@@ -122,4 +122,4 @@ sudo chown -R www-data:www-data /data/html /data/nginx
 sudo cp ./nginx.conf /data/nginx
 
 # Start docker-compose containers
-sudo docker-compose up -d
+sudo docker compose up -d
