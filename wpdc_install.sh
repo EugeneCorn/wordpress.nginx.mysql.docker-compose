@@ -6,11 +6,11 @@ sudo apt-get update
 
 # Installing packages
 
-sudo apt-get install ca-certificates curl gnupg lsb-release
+sudo apt-get -y install ca-certificates curl gnupg lsb-release
 
 # Add Docker's official GPG key
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/shre/keyrings/docker-archive-keyring.gpg
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
 # Set up the stable repository
 
@@ -22,7 +22,7 @@ echo \
 
 sudo apt-get update
 
-sudo apt-get install docker-ce docker-ce-cli container.io docker-compose-plugin
+sudo apt-get -y install docker-ce docker-ce-cli container.io docker-compose-plugin
 
 
 #Create user for MySQL with user id 999
