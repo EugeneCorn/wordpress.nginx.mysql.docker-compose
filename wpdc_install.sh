@@ -115,3 +115,13 @@ else
         echo "Created www-data user with id 82"
 
 fi 2> /dev/null
+
+# Create directories for NGINX /data/html and set owner for it
+sudo mkdir -p /data/html /data/nginx
+sudo chown -R www-data:www-data /data/html /data/nginx
+
+# Copy config file for docker-nginx
+sudo cp ./nginx.conf /data/nginx
+
+# Start docker-compose containers
+sudo docker-compose up -d
