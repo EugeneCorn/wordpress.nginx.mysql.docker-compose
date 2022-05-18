@@ -24,8 +24,47 @@ sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli container.io docker-compose-plugin
 
-#Create user for MySQL with user is 999
 
-sudo userdel mysql
+#Create user for MySQL with user id 999
 
-sudo 
+#If user mysql exist
+if [ `id -u --name 999 2> /dev/null` = "mysql" ]; then
+
+        echo "Current mysql id is 999."
+
+#If /etc/passwd have another user with id 999
+elif [ `id -u --name 999 2> /dev/null`  != "mysql" ]; then
+
+        #Make variable with name of current user with id 999
+
+        id -u --name 999 > fileforscript.himark
+
+        CURUSER=`cat ./fileforscript.himark`
+
+        # Delete current user with id 999
+        echo "Deleted user $CURUSER with id 999"
+        sudo userdel $CURUSER
+
+        # Create user mysql with id 999
+        echo "Created mysql user with id 999"
+        sudo userdel mysql > /dev/null
+        sudo useradd -u 999 mysql
+
+        # Create past user
+        echo "Created user $CURUSER"
+        sudo useradd $CURUSER
+
+        # remove temporary files
+        rm ./fileforscript.himark
+
+
+#If user mysql don't exist
+else
+        #Create user mysql with id 999
+        sudo userdel mysql
+        sudo useradd -u 999 mysql
+
+        echo "Created mysql user with id 999"
+
+fi 2> /dev/null
+
