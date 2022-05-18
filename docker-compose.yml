@@ -22,7 +22,7 @@ services:
 
     restart: always
 
- wordpress:
+  wordpress:
 
     image: wordpress:php7.3-fpm-alpine
 
@@ -71,4 +71,3 @@ services:
     links:
 
       - wordpress
-
